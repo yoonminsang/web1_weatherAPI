@@ -1,0 +1,175 @@
+h1,
+h2,
+body,
+div,
+ul,
+li,
+button,
+p {
+  padding: 0;
+  margin: 0px;
+}
+
+button,
+select {
+  cursor: pointer;
+  outline: 0;
+}
+
+a {
+  text-decoration: none;
+  color: gray;
+}
+
+li {
+  list-style: none;
+}
+
+h1 {
+  text-align: center;
+}
+h1 a {
+  color: black;
+}
+
+hr {
+  display: none;
+}
+
+#wrap {
+  background: linear-gradient(to bottom, #345aa3, #3485a3);
+  transition: all 0.5s;
+}
+
+header {
+  width: 300px;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: white;
+}
+
+.title {
+  padding: 20px;
+}
+.header_date {
+  color: gray;
+  position: relative;
+  left: 200px;
+  top: 20px;
+}
+
+.bt_menu {
+  border: none;
+  width: 100%;
+  text-align: left;
+  padding: 13px 27px;
+  font-weight: 700;
+  font-size: 22px;
+  color: #009ae1;
+  background: white;
+}
+
+.bt_menu:hover {
+  color: blue;
+}
+
+.bt_menu img {
+  width: 30px;
+  float: right;
+}
+
+.ul_menu2 {
+  display: none;
+  font-size: 18px;
+  color: #000000;
+  width: 100%;
+  text-align: left;
+  line-height: 50px;
+}
+
+.li_menu2 {
+  padding-left: 50px;
+}
+
+.a_menu {
+  color: lightgray;
+  pointer-events: auto;
+}
+.a_menu:hover {
+  color: black;
+}
+
+.a_menu_on {
+  color: blue;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+h4 {
+  padding: 0 30px 0 80px;
+  display: inline;
+}
+
+.inner_weather_img {
+  width: 50px;
+  float: right;
+  margin-right: 15px;
+}
+
+.inner_temp {
+  color: red;
+}
+
+.aside {
+  color: gray;
+  padding-top: 50px;
+  text-align: center;
+}
+
+.asdied_img {
+  text-align: center;
+}
+
+.aside_img a {
+  width: 50px;
+}
+.asdied_img img {
+  width: 80px;
+  height: 80px;
+  margin: 20px;
+}
+.section {
+  margin: 0 0 100px 300px;
+}
+.section_header {
+  float: right;
+  padding: 30px;
+  position: relative;
+  z-index: 100;
+}
+.section_header button {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background: white;
+  color: black;
+  border: none;
+  font-weight: 500;
+}
+.section_header button img {
+  width: 25px;
+  height: 25px;
+}
+#footer {
+  position: relative;
+  padding: 29px 0;
+  background: lightgray;
+}
+
+.copyright {
+  text-align: center;
+  font-size: 12px;
+  color: black;
+}

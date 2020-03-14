@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>M's Weather</title>
+  <link rel="stylesheet" href="style.css?ver=1" />
+  <link rel="stylesheet" href="main.css">
+
+</head>
+
+<body>
+  <div id="wrap">
+    <header>
+      <div class="title">
+        <h1><a href="index.html">M's Weather</a></h1>
+        <div class="header_date"></div>
+      </div>
+
+      <nav class="menu">
+        <ul class="ul_menu1">
+          <li class="li_menu1">
+            <button type="button" class="bt_menu">
+              날씨 <img src="img/weather.png" alt="날씨" />
+            </button>
+            <ul class="ul_menu2">
+              <li class="li_menu2">
+                <a href="all_weather.html" onclick="MenuChange()" class="a_menu">전체 날씨</a>
+              </li>
+              <li class="li_menu2">
+                <a href="region_weather.html" onclick="MenuChange()" class="a_menu">지역별 날씨</a>
+              </li>
+            </ul>
+          </li>
+          <li class="li_menu1">
+            <button type="button" class="bt_menu">
+              바다 <img src="img/sea.png" alt="바다" />
+            </button>
+            <ul class="ul_menu2">
+              <li class="li_menu2">
+                <a href="all_sea.html" class="a_menu">전체 바다</a>
+              </li>
+              <li class="li_menu2">
+                <a href="region_sea.html" class="a_menu">지역별 바다</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="interested_region">
+        <br><br><br>
+        <h4>관심지역</h4> <span><a href="javascript:OpenWindowPop();">설정</a></span>
+        <div class="interested_region_field">
+          <table cellpading="0" cellspacing="0" style="width: 100%;">
+            <caption style="display: none;">관심지역</caption>
+            <colgroup>
+              <col style="width: 30%;" />
+              <col style="width: 35%;" />
+              <col style="width: 35%;" />
+            </colgroup>
+            <tbody class="interested_region_field_tbody">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- <div class="recent_region">
+        <h4>최근찾아본 동네</h4>
+        <div class="menu_recent_region_field">
+         
+        </div>
+      </div> -->
+
+      <aside>
+        <div class="aside">
+          참고자료
+          <div class="asdied_img">
+            <a href="https://openweathermap.org/">
+              <img src="img/openweathermap.jpg" alt="오픈웨더맵" />
+            </a>
+            <a href="https://www.weather.go.kr/w/index.do">
+              <img src="img/KoreaMeteorologiclaAdministration.jpg" alt="기상청" /></a>
+          </div>
+        </div>
+      </aside>
+    </header>
+
+    <hr />
+
+    <section>
+      <div class="section">
+        <div class="section_header">
+          <button type="button" class=""> <img src="img/search.png" alt="검색"></img></button>
+          <button type="button" class=""><img src="img/settings.png" alt="설정"></img></button>
+        </div>
+        <div class="section_inner">
+          <div class="map">
+            <ul class="ul_map">
+              <li class="li_map_on" onclick="GetNowMap()">현재날씨</li>
+              <li class="li_map" onclick="GetMap(0)">오늘오전</li>
+              <li class="li_map" onclick="GetMap(3)">오늘오후</li>
+              <li class="li_map" onclick="GetMap(8)">내일오전</li>
+              <li class="li_map" onclick="GetMap(11)">내일오후</li>
+            </ul>
+            <img src="img/korea.jpg" alt="한국" class="map_korea" />
+
+            <div class="div_zone div_zone0">
+              <div class="region">서울/경기</div>
+              <a href="#!0" class="zone zone0"></a>
+            </div>
+
+            <div class="div_zone div_zone1">
+              <div class="region">영서</div>
+              <a href="#!1" class="zone zone1"> </a>
+            </div>
+
+            <div class="div_zone div_zone2">
+              <div class="region">영동</div>
+              <a href="#!2" class="zone zone2"> </a>
+            </div>
+
+            <div class="div_zone div_zone3">
+              <div class="region">충북</div>
+              <a href="#!13" class="zone zone3"> </a>
+            </div>
+
+            <div class="div_zone div_zone4">
+              <div class="region">충남</div>
+              <a href="#!14" class="zone zone4"> </a>
+            </div>
+
+            <div class="div_zone div_zone5">
+              <div class="region">경북</div>
+              <a href="#!5" class="zone zone5"> </a>
+            </div>
+
+            <div class="div_zone div_zone6">
+              <div class="region">경남</div>
+              <a href="#!6" class="zone zone6"> </a>
+            </div>
+
+            <div class="div_zone div_zone7">
+              <div class="region">전북</div>
+              <a href="#!7" class="zone zone7"> </a>
+            </div>
+
+            <div class="div_zone div_zone8">
+              <div class="region">전남</div>
+              <a href="#!8" class="zone zone8"> </a>
+            </div>
+
+            <div class="div_zone div_zone9">
+              <div class="region">제주도</div>
+              <a href="#!9" class="zone zone9"> </a>
+            </div>
+
+            <div class="map_time"></div>
+          </div>
+          <div class="world_weather">
+            <h3>오늘의 세계 날씨</h2>
+              <table class="today_world_weather">
+                <colgroup>
+                  <col style="width: 16.7px;">
+                  <col style="width: 16.66px;">
+                  <col style="width: 16.66px;">
+                  <col style="width: 16.66px;">
+                  <col style="width: 16.66px;">
+                  <col style="width: 16.66px;">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th>베이징</th>
+                    <th>도쿄</th>
+                    <th>모스크바</th>
+                    <th>파리</th>
+                    <th>런던</th>
+                    <th>뉴욕</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="icon"></tr>
+                  <tr class="weather"></tr>
+                  <tr class="temp"></tr>
+                </tbody>
+              </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr />
+
+    <footer id="footer">
+      <p class="copyright">
+        Copyright@2020 YoonMinSang. All Rights RESERVED. E-mail:
+        apdlyooapdl@naver.com
+      </p>
+    </footer>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="menuhandler.js"></script>
+  <script src="maphandler.js"></script>
+</body>
+
+</html>

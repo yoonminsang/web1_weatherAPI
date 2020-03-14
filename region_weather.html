@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>M's Weather</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="region_weather.css">
+</head>
+
+<body>
+    <div id="wrap">
+        <header>
+            <div class="title">
+                <h1><a href="index.html">M's Weather</a></h1>
+                <div class="header_date"></div>
+            </div>
+            <nav class="menu">
+                <ul class="ul_menu1">
+                  <li class="li_menu1">
+                    <button type="button" class="bt_menu">
+                      날씨 <img src="img/weather.png" alt="날씨" />
+                    </button>
+                    <ul class="ul_menu2">
+                      <li class="li_menu2">
+                        <a href="all_weather.html" onclick="MenuChange()" class="a_menu">전체 날씨</a>
+                      </li>
+                      <li class="li_menu2">
+                        <a href="region_weather.html" onclick="MenuChange()" class="a_menu">지역별 날씨</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="li_menu1">
+                    <button type="button" class="bt_menu">
+                      바다 <img src="img/sea.png" alt="바다" />
+                    </button>
+                    <ul class="ul_menu2">
+                      <li class="li_menu2">
+                        <a href="all_sea.html" class="a_menu">전체 바다</a>
+                      </li>
+                      <li class="li_menu2">
+                        <a href="region_sea.html" class="a_menu">지역별 바다</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </nav>
+        
+              <div class="interested_region">
+                <br><br><br>
+                <h4>관심지역</h4> <span><a href="javascript:OpenWindowPop();">설정</a></span>
+                <div class="interested_region_field">
+                  <table cellpading="0" cellspacing="0" style="width: 100%;">
+                  <caption style="display: none;">관심지역</caption>
+                  <colgroup>
+                    <col style="width: 30%;"/>
+                    <col style="width: 35%;"/>
+                    <col style="width: 35%;"/>
+                  </colgroup>
+                  <tbody class="interested_region_field_tbody">
+                  </tbody>
+                  </table>
+                </div>
+              </div>
+            <aside>
+                <div class="aside">
+                    참고자료
+                    <div class="asdied_img">
+                        <a href="https://openweathermap.org/">
+                            <img src="img/openweathermap.jpg" alt="오픈웨더맵" />
+                        </a>
+                        <a href="https://www.weather.go.kr/w/index.do">
+                            <img src="img/KoreaMeteorologiclaAdministration.jpg" alt="기상청" /></a>
+                    </div>
+                </div>
+            </aside>
+        </header>
+
+        <hr />
+
+        <section>
+            <div class="section">
+                <div class="section_header">
+                    <button type="button" class=""> <img src="img/search.png" alt="검색"></img></button>
+                    <button type="button" class=""><img src="img/settings.png" alt="설정"></img></button>
+                </div>
+                <div class="section_inner">
+                    <h2>지역별 날씨</h2>
+                    <div class="inner_background">
+                        <img src="img/rain.jpg" alt="비" />
+                    </div>
+                    <div class="region_weather_search">
+                        <span class="span_region_select">지역선택</span>
+                        <select name="region_1" id="select_region_1">
+                            <option>서울/경기</option>
+                            <option>강원도</option>
+                            <option>충청도</option>
+                            <option>경상도</option>
+                            <option>전라/제주</option>
+                        </select>
+                        <select name="region_2" id="select_region_2">
+                            <option>서울</option>
+                            <option>의정부</option>
+                            <option>대부도</option>
+                        </select>
+                        <button class="region_search" onclick="RegionSearch()">조회</button>
+                        <button class="region_save" onclick="InterestRegionSave()">관심지역 저장</button>
+                    </div>
+                    <h3>간단 날씨</h3>
+                    <div class="simple_table_weather">
+                        <p class="p_head">간단 현재 날씨</p>
+                        <div class="simple_table_weather_now">
+                            <p class="now_time"></p>
+                            <P style="height: 134px;">
+                                <span class="now_img"></span>
+                                <span class="now_temp"></span>
+                            </P>
+                            <div class="now_info_data">
+                                <p>
+                                    <span class="now_temp_min"></span>
+                                    <span class="span_div"></span>
+                                    <span class="now_temp_max"></span>
+                                    <span class="span_div"></span>
+                                    <span class="now_feels_like"></span>
+                                </p>
+
+                            </div>
+                        </div>
+                        <div class="simple_table_weather_now_2">뉴스나 풍향같은 정보 넣기</div>
+                        <p class="p_head">간단 시간별 날씨</p>
+                        <ul class="ul_simple_time">
+                            <li class="li_simple_time" onclick="SimpleTimeWeatherBt(regionCode, 'temp')">기온</li>
+                            <li class="li_simple_time" onclick="SimpleTimeWeatherBt(regionCode, 'pressure')">기압</li>
+                            <li class="li_simple_time" onclick="SimpleTimeWeatherBt(regionCode, 'humidity')">습도</li>
+                        </ul>
+                        <div id="simple_table_weather_time_graph"></div>
+                        <div class="simple_table_weather_time_weather"></div>
+                    </div>
+                    <h3>시간별 날씨</h3>
+                    <div class="time_table_weather">
+                        <table class="time_table" cellpading="0" cellspacing="0" style="width: 100%;">
+                            <caption style="display: none;">시간별 날씨</caption>
+                            <colgroup>
+                                <col style="width: 6.25%;">
+                                <col style="width: 6.25%;">
+                                <col style="width: 6.25%;">
+                                <col style="width: 6.25%;">
+                                <col style="width: 6.25%;">
+                                <col style="width: 6.25%;">
+                                <col style="width: 6.25%;">
+                                <col style="width: 6.25%;">
+                                <col style="width: 6.25%;">
+                                <col style="width: 6.25%;">
+                                <col style="width: 6.25%;">
+                                <col style="width: 6.25%;">
+                                <col style="width: 6.25%;">
+                                <col style="width: 6.25%;">
+                                <col style="width: 6.25%;">
+                                <col style="width: 6.25%;">
+                            </colgroup>
+                            <tbody>
+                                <tr class="time"></tr>
+                                <tr class="icon"></tr>
+                                <tr class="status"></tr>
+                                <tr class="temp"></tr>
+                                <tr class="temp_min"></tr>
+                                <tr class="feels_like"></tr>
+                                <tr class="pressure"></tr>
+                                <tr class="humidity"></tr>
+                                <tr class="wind_speed"></tr>
+                                <tr class="wind_deg"></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </section>
+
+        <hr />
+
+        <footer id="footer">
+            <p class="copyright">
+                Copyright@2020 YoonMinSang. All Rights RESERVED. E-mail:
+                apdlyooapdl@naver.com
+            </p>
+        </footer>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="menuhandler.js"></script>
+    <script src="region_weather.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+</body>
+
+</html>

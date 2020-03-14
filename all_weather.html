@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>M's Weather</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="all_weather.css">
+</head>
+
+<body>
+    <div id="wrap">
+        <header>
+            <div class="title">
+                <h1><a href="index.html">M's Weather</a></h1>
+                <div class="header_date"></div>
+            </div>
+            <nav class="menu">
+                <ul class="ul_menu1">
+                  <li class="li_menu1">
+                    <button type="button" class="bt_menu">
+                      날씨 <img src="img/weather.png" alt="날씨" />
+                    </button>
+                    <ul class="ul_menu2">
+                      <li class="li_menu2">
+                        <a href="all_weather.html" onclick="MenuChange()" class="a_menu">전체 날씨</a>
+                      </li>
+                      <li class="li_menu2">
+                        <a href="region_weather.html" onclick="MenuChange()" class="a_menu">지역별 날씨</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="li_menu1">
+                    <button type="button" class="bt_menu">
+                      바다 <img src="img/sea.png" alt="바다" />
+                    </button>
+                    <ul class="ul_menu2">
+                      <li class="li_menu2">
+                        <a href="all_sea.html" class="a_menu">전체 바다</a>
+                      </li>
+                      <li class="li_menu2">
+                        <a href="region_sea.html" class="a_menu">지역별 바다</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </nav>
+        
+              <div class="interested_region">
+                <br><br><br>
+                <h4>관심지역</h4> <span><a href="javascript:OpenWindowPop();">설정</a></span>
+                <div class="interested_region_field">
+                  <table cellpading="0" cellspacing="0" style="width: 100%;">
+                  <caption style="display: none;">관심지역</caption>
+                  <colgroup>
+                    <col style="width: 30%;"/>
+                    <col style="width: 35%;"/>
+                    <col style="width: 35%;"/>
+                  </colgroup>
+                  <tbody class="interested_region_field_tbody">
+                  </tbody>
+                  </table>
+                </div>
+              </div>
+            <aside>
+                <div class="aside">
+                    참고자료
+                    <div class="asdied_img">
+                        <a href="https://openweathermap.org/">
+                            <img src="img/openweathermap.jpg" alt="오픈웨더맵" />
+                        </a>
+                        <a href="https://www.weather.go.kr/w/index.do">
+                            <img src="img/KoreaMeteorologiclaAdministration.jpg" alt="기상청" /></a>
+                    </div>
+                </div>
+            </aside>
+        </header>
+
+        <hr />
+
+        <section>
+            <div class="section">
+                <div class="section_header">
+                    <button type="button" class=""> <img src="img/search.png" alt="검색"></img></button>
+                    <button type="button" class=""><img src="img/settings.png" alt="설정"></img></button>
+                </div>
+                <div class="section_inner">
+                    <h2>전체 날씨</h2>
+                    <div class="inner_background">
+                        <img src="img/rain.jpg" alt="비" />
+                    </div>
+                    <div class="table_weather">
+                        <table class="weather_table" cellpading="0" cellspacing="0">
+                            <caption>
+                                기상실황표
+                            </caption>
+                            <colgroup>
+                                <col style="width: 10%;" />
+                                <col style="width: 9%;" />
+                                <col style="width: 9%;" />
+                                <col style="width: 9%;" />
+                                <col style="width: 9%;" />
+                                <col style="width: 9%;" />
+                                <col style="width: 9%;" />
+                                <col style="width: 9%;" />
+                                <col style="width: 9%;" />
+                                <col style="width: 9%;" />
+                                <col style="width: 9%;" />
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th colspan="2">상태</th>
+                                    <th colspan="4">기온</th>
+                                    <th colspan="2">기압/습도</th>
+                                    <th colspan="2">바람</th>
+                                </tr>
+                                <tr>
+                                    <th>지역</th>
+                                    <th>아이콘</th>
+                                    <th>상태</th>
+                                    <th>온도</th>
+                                    <th>체감온도</th>
+                                    <th>최저온도</th>
+                                    <th>최대온도</th>
+                                    <th>기압</th>
+                                    <th>습도</th>
+                                    <th>풍속</th>
+                                    <th>풍향</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <hr />
+
+        <footer id="footer">
+            <p class="copyright">
+                Copyright@2020 YoonMinSang. All Rights RESERVED. E-mail:
+                apdlyooapdl@naver.com
+            </p>
+        </footer>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="menuhandler.js"></script>
+    <script src="all_weather.js"></script>
+</body>
+
+</html>

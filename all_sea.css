@@ -1,0 +1,36 @@
+h2 {
+  font-size: 50px;
+  position: relative;
+  top: 50px;
+  z-index: 100;
+  text-align: center;
+}
+
+.inner_background {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+  bottom: 100px;
+}
+
+.inner_background img {
+  width: 100%;
+}
+
+caption {
+  text-align: right;
+  color: white;
+}
+
+.sea_table {
+  width: 800px;
+  background: white;
+  border-top: 2px solid black;
+  margin: auto;
+  text-align: center;
+}
+
+.sea_table img {
+  width: 50px;
+}

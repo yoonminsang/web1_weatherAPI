@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Interest Region</title>
+</head>
+<style>
+  div,
+  span,
+  button {
+    padding: 0;
+    margin: 0px;
+  }
+
+  body {
+    margin: 30px;
+  }
+
+  a {
+    color: black;
+    text-decoration: none;
+  }
+
+  button,
+  select {
+    cursor: pointer;
+    outline: 0;
+  }
+
+  .bt_plus {
+    width: 50px;
+    height: 50px;
+    border: 1px solid lightgray;
+    border-radius: 100%;
+    background: white;
+    color: rgb(111, 124, 90);
+    font-size: 40px;
+    float: right;
+  }
+
+  #field {
+    padding: 10px 0;
+  }
+
+  .input_region {
+    width: 120px;
+    height: 26px;
+    font-size: 13.3333px;
+    background: #cce0ff;
+    border: 1px solid #b3d1ff;
+    border-radius: 5px;
+    outline: 0;
+    padding: 1px 5px;
+  }
+
+  select {
+    text-align: center;
+    background: #cce0ff;
+    border: 1px solid #b3d1ff;
+    border-radius: 5px;
+    width: 120px;
+    height: 30px;
+    margin: 0 10px;
+  }
+
+  .field_load button {
+    font-size: 12px;
+    border: 1px solid lightgray;
+    width: 80px;
+    height: 28px;
+    margin: 10px;
+    background: white;
+  }
+
+  .bt_model {
+    font-size: 12px;
+    border: 1px solid lightgray;
+    width: 100px;
+    height: 30px;
+    margin: 10px;
+    background: white;
+  }
+
+  .div_region {
+    width: 120px;
+    height: 26px;
+    font-size: 15px;
+    background: #cce0ff;
+    border: 1px solid #b3d1ff;
+    border-radius: 5px;
+    outline: 0;
+    padding: 1px 5px;
+    display: inline-block;
+    font-size: 13.3333px;
+  }
+
+  .div_region_1,
+  .div_region_2 {
+    text-align: left;
+    background: #cce0ff;
+    border: 1px solid #b3d1ff;
+    border-radius: 5px;
+    width: 108px;
+    height: 26px;
+    margin: 0 10px;
+    display: inline-block;
+    margin: 0 10px;
+    font-size: 13.3333px;
+    padding: 1px 5px;
+  }
+</style>
+
+<body>
+  <div class="head">
+    <h1>관심지역</h1>
+  </div>
+  <div class="inner">
+    <strong>관심지역을 선택하세요(최대 3개)</strong>
+    <button type="button" class="bt_plus" onclick="Plus()">+</button>
+    <div id="field"></div>
+    <div class="bt">
+      <button class="bt_model" onclick="Confirm()">확인</button>
+      <button class="bt_model" onclick="Cancel()">취소</button>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+      Load();
+      function Load() {
+        var i=1;
+        while(true){
+          var output = localStorage.getItem("interest region"+i);
+          if(output==null){
+            break;
+          }
+          var arr = JSON.parse(output);
+          console.log(arr[0].region);
+          var load1 = arr[0].region;
+          var load2 = arr[0].region_1;
+          var load3 = arr[0].region_2;
+          $('#field').append(
+            '<div class="field_load"' +
+            'id="' +
+            i +
+            '">' +
+            '<div class="div_region"><span>' +
+            load1 +
+            '</span></div><div class="div_region_1"><span>' +
+            load2 +
+            '</span></div><div class="div_region_2"><span>' +
+            load3 +
+            '</span></div>' +
+            '<button type="button" class="bt_mode_modify" onclick="ItemModify()">수정</button>' +
+            '<button type="button" class="bt_mode_delete" onclick="ItemDelete()">삭제</button>'+
+            '</div');
+          i++;
+        }
+      }
+      
+      function Plus() {
+        if ($('.field_load').length < 3) {
+          ModeOn();
+          $("#field").append(
+            '<div class="field_load"' +
+            'id="' +
+            ($('.field_load').length + 1) +
+            '">' +
+            '<input type="text" class="input_region" placeholder="ex)우리집">' +
+            '<select name="region_1" class="select_region_1">' +
+            '<option>서울/경기</option>' +
+            '<option>강원도</option>' +
+            '<option>충청도</option>' +
+            '<option>경상도</option>' +
+            '<option>전라/제주</option>' +
+            '</select>' +
+            '<select name="region_2" class="select_region_2">' +
+            '<option>서울</option>' +
+            '<option>의정부</option>' +
+            '<option>대부도</option>' +
+            '</select>' +
+            '<button type="button" class="bt_mode_save" onclick="ItemSave()">저장</button>' +
+            '<button type="button" class="bt_mode_cancel" onclick="ItemCancel()">취소</button>' +
+            '</div>')
+        }
+        SelectChange();
+        InputValueChange();
+      }
+
+      function ItemSave() {
+        ModeOff()
+        var parent = $(event.target).parent();
+        var re1 = $('.input_region').val();
+        var re2 = $('.select_region_1').val();
+        var re3 = $('.select_region_2').val();
+        parent.empty();
+        parent.append(
+          '<div class="div_region"><span>' +
+          re1 +
+          '</span></div><div class="div_region_1"><span>' +
+          re2 +
+          '</span></div><div class="div_region_2"><span>' +
+          re3 +
+          '</span></div>' +
+          '<button type="button" class="bt_mode_modify" onclick="ItemModify()">수정</button>' +
+          '<button type="button" class="bt_mode_delete" onclick="ItemDelete()">삭제</button>'
+        );
+      }
+
+      function ItemCancel() {
+        ModeOff()
+        var parent = $(event.target).parent();
+        parent.remove();
+      }
+
+      var r1;
+      var r2;
+      var r3;
+
+      function ItemModify() {
+        ModeOn();
+        var parent = $(event.target).parent();
+        r1 = parent.children('.div_region').children('span').text();
+        r2 = parent.children('.div_region_1').children('span').text();
+        r3 = parent.children('.div_region_2').children('span').text();
+        parent.empty();
+
+        parent.append(
+          '<input type="text" class="input_region" placeholder="ex)우리집" value="' +
+          r1 +
+          '">' +
+          '<select name="region_1" class="select_region_1">' +
+          '<option>서울/경기</option>' +
+          '<option>강원도</option>' +
+          '<option>충청도</option>' +
+          '<option>경상도</option>' +
+          '<option>전라/제주</option>' +
+          '</select>' +
+          '<select name="region_2" class="select_region_2">' +
+          '</select>' +
+          '<button type="button" class="bt_mode_save" onclick="ItemSave()">저장</button>' +
+          '<button type="button" class="bt_mode_save_cancel" onclick="ItemSaveCancel()">취소</button>'
+        );
+        SelectAdd();
+        $('.select_region_1').val(r2).prop("selected", true);
+        $('.select_region_2').val(r3).prop("selected", true);
+        SelectChange();
+        InputValueChange();
+      }
+
+      function ItemDelete() {
+        ModeOff();
+        var parent = $(event.target).parent();
+        parent.remove();
+      }
+
+      function ItemSaveCancel() {
+        ModeOff();
+        var parent = $(event.target).parent();
+        parent.empty();
+        parent.append(
+          '<input type="text" class="input_region" placeholder="ex)우리집" value="' +
+          r1 +
+          '">' +
+          '<select name="region_1" class="select_region_1">' +
+          '<option>서울/경기</option>' +
+          '<option>강원도</option>' +
+          '<option>충청도</option>' +
+          '<option>경상도</option>' +
+          '<option>전라/제주</option>' +
+          '</select>' +
+          '<select name="region_2" class="select_region_2">' +
+          '</select>' +
+          '<button type="button" class="bt_mode_modify" onclick="ItemModify()">수정</button>' +
+          '<button type="button" class="bt_mode_delete" onclick="ItemDelete()">삭제</button>'
+        );
+        SelectAdd();
+        $('.select_region_1').val(r2).prop("selected", true);
+        $('.select_region_2').val(r3).prop("selected", true);
+        SelectChange();
+        InputValueChange();
+      }
+
+      function Confirm() {
+        for (var i = 1; i <= 3; i++) {
+          localStorage.removeItem('interest region' + i);
+        }
+        for (var i = 1; i <= $('.field_load').length; i++) {
+          var a = $('#' + i).children('.div_region').children('span').text();
+          var b = $('#' + i).children('.div_region_1').children('span').text();
+          var c = $('#' + i).children('.div_region_2').children('span').text();
+          var d;
+          var save = [];
+          switch (c) {
+            case "서울": d = 1835848;
+              break;
+            case "의정부": d = 1833788;
+              break;
+            case "대부도": d = 1844106;
+              break;
+            case "춘천": d = 1845136;
+              break;
+            case "원주": d = 1833105;
+              break;
+            case "고성": d = 1840179;
+              break;
+            case "속초": d = 1836553;
+              break;
+            case "동해": d = 1892823;
+              break;
+            case "강릉": d = 1843137;
+              break;
+            case "영월": d = 1832257;
+              break;
+            case "서산": d = 1835895;
+              break;
+            case "청주": d = 1845604;
+              break;
+            case "천안": d = 1845759;
+              break;
+            case "공주": d = 1842616;
+              break;
+            case "대전": d = 1835224;
+              break;
+            case "포항": d = 1839071;
+              break;
+            case "창원": d = 1846326;
+              break;
+            case "구미": d = 1842225;
+              break;
+            case "울산": d = 1833747;
+              break;
+            case "마산": d = 1841245;
+              break;
+            case "거제": d = 1882056;
+              break;
+            case "전주": d = 1845457;
+              break;
+            case "광주": d = 1841811;
+              break;
+            case "임실": d = 1843585;
+              break;
+            case "여수": d = 1832157;
+              break;
+            case "영광": d = 1832501;
+              break;
+            case "목포": d = 1841066;
+              break;
+            case "해남": d = 1844751;
+              break;
+            case "순천": d = 1835648;
+              break;
+            case "제주도": d = 1846266;
+              break;
+          }
+          save.push({ region: a, region_1: b, region_2: c, region_code: d });
+          localStorage.setItem('interest region' + i, JSON.stringify(save));
+        }
+        window.close();
+      }
+
+      function Cancel() {
+        window.close();
+      }
+
+      function SelectChange() {
+        $(".select_region_1").change(function () {
+          $(".select_region_2").empty();
+          switch ($(".select_region_1").val()) {
+            case "서울/경기": $(".select_region_2").append("<option>서울</option><option>의정부</option><option>대부도</option>");
+              break;
+            case "강원도": $(".select_region_2").append("<option>춘천</option><option>원주</option><option>고성</option><option>속초</option><option>동해</option><option>강릉</option><option>영월</option><option>서산</option>");
+              break;
+            case "충청도": $(".select_region_2").append("<option>청주</option><option>천안</option><option>공주</option><option>대전</option>");
+              break;
+            case "경상도": $(".select_region_2").append("<option>포항</option><option>창원</option><option>구미</option><option>울산</option><option>마산</option><option>거제</option>");
+              break;
+            case "전라/제주": $(".select_region_2").append("<option>전주</option><option>광주</option><option>임실</option><option>여수</option><option>영광</option><option>목포</option><option>해남</option><option>순천</option><option>제주도</option>");
+              break;
+          }
+        });
+      }
+      function SelectAdd() {
+        switch (r2) {
+          case "서울/경기": $(".select_region_2").append("<option>서울</option><option>의정부</option><option>대부도</option>");
+            break;
+          case "강원도": $(".select_region_2").append("<option>춘천</option><option>원주</option><option>고성</option><option>속초</option><option>동해</option><option>강릉</option><option>영월</option><option>서산</option>");
+            break;
+          case "충청도": $(".select_region_2").append("<option>청주</option><option>천안</option><option>공주</option><option>대전</option>");
+            break;
+          case "경상도": $(".select_region_2").append("<option>포항</option><option>창원</option><option>구미</option><option>울산</option><option>마산</option><option>거제</option>");
+            break;
+          case "전라/제주": $(".select_region_2").append("<option>전주</option><option>광주</option><option>임실</option><option>여수</option><option>영광</option><option>목포</option><option>해남</option><option>순천</option><option>제주도</option>");
+            break;
+        }
+      }
+      function ModeOn() {
+        $('.bt_plus').css('display', 'none');
+        $('.bt_model').attr('disabled', true);
+      }
+
+      function ModeOff() {
+        $('.bt_plus').css('display', 'inline-block');
+        $('.bt_model').attr('disabled', false);
+      }
+
+      function InputValueChange() {
+        $('input').on("propertychange change keyup paste", function () {
+          $('input').attr('value', $('input').val());
+        });
+      }
+    </script>
+</body>
+
+</html>
